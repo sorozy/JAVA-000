@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.task.java.week08.shardingsphereshardingdemo.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.task.java.week08.shardingsphereshardingdemo.entity.Goods">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="buyer_id" jdbcType="BIGINT" property="buyerId" />
+    <result column="first_category" jdbcType="INTEGER" property="firstCategory" />
+    <result column="second_category" jdbcType="INTEGER" property="secondCategory" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="unit" jdbcType="TINYINT" property="unit" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="created_at" jdbcType="BIGINT" property="createdAt" />
+    <result column="updated_at" jdbcType="BIGINT" property="updatedAt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, goods_name, seller_id, buyer_id, first_category, second_category, weight, unit, 
+    price, created_at, updated_at
+  </sql>
+  <select id="selectByExample" parameterType="com.task.java.week08.shardingsphereshardingdemo.entity.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_goods
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_goods
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.task.java.week08.shardingsphereshardingdemo.entity.GoodsExample">
+    delete from tb_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.task.java.week08.shardingsphereshardingdemo.entity.Goods">
+    insert into tb_goods (id, goods_name, seller_id, 
+      buyer_id, first_category, second_category, 
+      weight, unit, price, 
+      created_at, updated_at)
+    values (#{id,jdbcType=BIGINT}, #{goodsName,jdbcType=VARCHAR}, #{sellerId,jdbcType=BIGINT}, 
+      #{buyerId,jdbcType=BIGINT}, #{firstCategory,jdbcType=INTEGER}, #{secondCategory,jdbcType=INTEGER}, 
+      #{weight,jdbcType=DECIMAL}, #{unit,jdbcType=TINYINT}, #{price,jdbcType=DECIMAL}, 
+      #{createdAt,jdbcType=BIGINT}, #{updatedAt,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.task.java.week08.shardingsphereshardingdemo.entity.Goods">
+    insert into tb_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="sellerId != null">
+        seller_id,
+      </if>
+      <if test="buyerId != null">
+        buyer_id,
+      </if>
+      <if test="firstCategory != null">
+        first_category,
+      </if>
+      <if test="secondCategory != null">
+        second_category,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerId != null">
+        #{sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="buyerId != null">
+        #{buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="firstCategory != null">
+        #{firstCategory,jdbcType=INTEGER},
+      </if>
+      <if test="secondCategory != null">
+        #{secondCategory,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=TINYINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.task.java.week08.shardingsphereshardingdemo.entity.GoodsExample" resultType="java.lang.Long">
+    select count(*) from tb_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsName != null">
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellerId != null">
+        seller_id = #{record.sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.buyerId != null">
+        buyer_id = #{record.buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.firstCategory != null">
+        first_category = #{record.firstCategory,jdbcType=INTEGER},
+      </if>
+      <if test="record.secondCategory != null">
+        second_category = #{record.secondCategory,jdbcType=INTEGER},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=TINYINT},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_goods
+    set id = #{record.id,jdbcType=BIGINT},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      seller_id = #{record.sellerId,jdbcType=BIGINT},
+      buyer_id = #{record.buyerId,jdbcType=BIGINT},
+      first_category = #{record.firstCategory,jdbcType=INTEGER},
+      second_category = #{record.secondCategory,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=DECIMAL},
+      unit = #{record.unit,jdbcType=TINYINT},
+      price = #{record.price,jdbcType=DECIMAL},
+      created_at = #{record.createdAt,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.task.java.week08.shardingsphereshardingdemo.entity.Goods">
+    update tb_goods
+    <set>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerId != null">
+        seller_id = #{sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="buyerId != null">
+        buyer_id = #{buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="firstCategory != null">
+        first_category = #{firstCategory,jdbcType=INTEGER},
+      </if>
+      <if test="secondCategory != null">
+        second_category = #{secondCategory,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=TINYINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.task.java.week08.shardingsphereshardingdemo.entity.Goods">
+    update tb_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      seller_id = #{sellerId,jdbcType=BIGINT},
+      buyer_id = #{buyerId,jdbcType=BIGINT},
+      first_category = #{firstCategory,jdbcType=INTEGER},
+      second_category = #{secondCategory,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DECIMAL},
+      unit = #{unit,jdbcType=TINYINT},
+      price = #{price,jdbcType=DECIMAL},
+      created_at = #{createdAt,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
