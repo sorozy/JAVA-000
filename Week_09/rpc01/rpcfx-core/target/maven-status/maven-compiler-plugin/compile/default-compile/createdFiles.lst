@@ -1,0 +1,15 @@
+io/kimmking/rpcfx/client/CglibProxyDemo$CglibProxyInterceptor.class
+io/kimmking/rpcfx/client/CglibRpcfx$RpcfxInterceptor.class
+io/kimmking/rpcfx/server/RpcfxInvoker.class
+io/kimmking/rpcfx/client/HttpClient.class
+io/kimmking/rpcfx/client/HttpClient$1.class
+io/kimmking/rpcfx/client/CglibProxy.class
+io/kimmking/rpcfx/exception/RpcfxException.class
+io/kimmking/rpcfx/client/CglibProxyDemo.class
+io/kimmking/rpcfx/client/CglibProxyDemo$Demo.class
+io/kimmking/rpcfx/client/Rpcfx$RpcfxInvocationHandler.class
+io/kimmking/rpcfx/api/RpcfxRequest.class
+io/kimmking/rpcfx/client/Rpcfx.class
+io/kimmking/rpcfx/api/RpcfxResponse.class
+io/kimmking/rpcfx/client/CglibRpcfx.class
+io/kimmking/rpcfx/api/RpcfxResolver.class
